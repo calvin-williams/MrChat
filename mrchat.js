@@ -54,6 +54,10 @@ rl.on('line', function (line) {
     console.log('type wiki or wikipedia and what you want to search on wikipedia after wiki or wikipedia,');
     console.log('');
     console.log('');
+  } else if (containsAll(words, ['what', 'is', 'name'])) {
+    console.log('My name is Mr. Chat');
+  } else if (containsAll(words, ['who', 'you'])) {
+    console.log('I am Mr. Chat');
   } else if (containsAny(words, ['boy', 'male', 'man'])) {
     person.gender = 'male';
     console.log('So you are male!')
