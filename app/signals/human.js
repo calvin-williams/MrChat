@@ -8,7 +8,7 @@ import stateToOutput from 'cerebral-addons/stateToOutput';
 import set from 'cerebral-addons/set';
 
 const whenHuman = when(['chat', 'input'], { saidNothing: '', saidSomething: when.otherwise });
-const getHumanText = stateToOutput(['chat', 'input'], 'humanText');
+const getHumanText = stateToOutput(['chat', 'input'], 'text');
 const clearHumanText = set(['chat', 'input'], '');
 
 controller.signal('human.spoke', [
