@@ -34,14 +34,15 @@ export default function processHumanText(input, state, output) {
     url = 'https://www.wikipedia.org/wiki/' + words.join('_');
   } else if (contains(words, 'youtube') === 1 && words.length > 1) {
     words.shift();
-    url = 'https://www.youtube.com/results?search_query=' + words.join('+');
+    response.push("I just opened youtube in a new window, if you didn't see anything then maybe you have popup windows blocked.");
+    window.open('https://www.youtube.com/results?search_query=' + words.join('+'));
   } else if (contains(words, 'help')) {
     response.push('type help to open the help interface,');
     response.push('type google and what you want to search after google,');
     response.push('type youtube to and what you want to search on youtube after youtube,');
     response.push('type wiki or wikipedia and what you want to search on wikipedia after wiki or wikipedia,');
-    response.push('');
-    response.push('');
+    // response.push('');
+    // response.push('');
   } else if (containsAll(words, ['what', 'is', 'name'])) {
     response.push('My name is Mr. Chat');
   } else if (containsAll(words, ['who', 'you'])) {
