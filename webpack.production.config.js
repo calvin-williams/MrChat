@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
@@ -34,7 +35,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    }),
+    new ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(en)$/)
   ],
   module: {
     loaders: [{
