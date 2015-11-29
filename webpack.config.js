@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -26,7 +27,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
+    new ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(en)$/)
   ],
   module: {
     loaders: [{
