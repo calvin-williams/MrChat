@@ -15,6 +15,12 @@ export default class App extends React.Component {
     computer: PropTypes.object
   };
 
+  componentDidUpdate({ conversation }) {
+    if (conversation !== this.props.conversation) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }
+
   render() {
     const {
       conversation,
@@ -32,7 +38,13 @@ export default class App extends React.Component {
           return (
             <div key={line} className={styles.line}>
               <span className={styles.name}>{name}</span>
-              <span className={styles.said}>{they.said}</span>
+              <span className={styles.said}>{
+                Array.isArray(they.said)
+                  ? they.said.map((said, i) => <span key={i}>{said}<br/></span>)
+                  : they.said
+              }{they.url ? (
+                <iframe className={styles.iframe} src={they.url}/>
+              ) : null}</span>
             </div>
           );
         })}
