@@ -29,6 +29,8 @@ export default function processHumanText(input, state, output) {
   if (contains(words, 'google') === 1 && words.length > 1) {
     words.shift();
     url = 'http://www.google.com/custom?q=' + words.join('+');
+  } else if (containsAll(words, ['pacman', 'play'])) {
+    url = 'https://macek.github.io/google_pacman/';
   } else if (contains(words, 'wiki') === 1 && words.length > 1) {
     words.shift();
     url = 'https://www.wikipedia.org/wiki/' + words.join('_');
