@@ -1,18 +1,17 @@
-function contains(words, word) {
+function contains (words, word) {
   return words.indexOf(word) + 1;
 }
 
-function containsAny(words, list) {
+function containsAny (words, list) {
   return list.find(word => contains(words, word));
 }
 
-function containsAll(words, list) {
+function containsAll (words, list) {
   const matches = list.filter(word => contains(words, word));
   return matches.length === list.length;
 }
 
-export default function processHumanText(input, state, output) {
-
+export default function processHumanText (input, state, output) {
   const response = [];
   const line = input.text;
   const human = state.get('human');
@@ -23,7 +22,6 @@ export default function processHumanText(input, state, output) {
 
   // find any numbers in the words
   const numbers = words.map(word => parseInt(word, 10)).filter(number => !isNaN(number));
-
 
   // did they tell us how old they are?
   if (contains(words, 'google') === 1 && words.length > 1) {
@@ -51,7 +49,14 @@ export default function processHumanText(input, state, output) {
     response.push('I am Mr. Chat');
   } else if (containsAny(words, ['boy', 'male', 'man'])) {
     state.set(['human', 'gender'], 'male');
-    response.push('So you are male!');
+  } else if (containsAll(words, ['i', 'tall'])) {
+    state.set(['human', 'size'], 'tall');
+    const gender = state.get(['human', 'gender']);
+    if (gender) {
+      response.push('So you are a tall ' + gender);
+    } else {
+      response.push('So you are tall');
+    }
   } else if (containsAny(words, ['girl', 'lady', 'female'])) {
     state.set(['human', 'gender'], 'female');
     response.push('So you are female!');
@@ -68,7 +73,7 @@ export default function processHumanText(input, state, output) {
     state.set(['human', 'name'], name);
     response.push('So your name is ' + name + '!');
     // this is a simple Knock Knock joke
-  }  else if (contains(words, 'joke')) {
+  } else if (contains(words, 'joke')) {
     response.push('Knock, Knock');
   } else if (containsAll(words, ['who', 'there'])) {
     response.push('pasture.');
@@ -87,9 +92,7 @@ export default function processHumanText(input, state, output) {
 
   // response.push('Things I know about you:', person);
 
-
   // state.set(['human', 'name'], 'Bob');
 
   output({ text: response, url });
-
 }
