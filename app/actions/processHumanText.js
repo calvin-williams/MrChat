@@ -49,6 +49,7 @@ export default function processHumanText (input, state, output) {
     response.push('I am Mr. Chat');
   } else if (containsAny(words, ['boy', 'male', 'man'])) {
     state.set(['human', 'gender'], 'male');
+    response.push('So you are male');
   } else if (containsAll(words, ['i', 'tall'])) {
     state.set(['human', 'size'], 'tall');
     const gender = state.get(['human', 'gender']);
@@ -65,6 +66,12 @@ export default function processHumanText (input, state, output) {
     } else {
       response.push('So you are small');
     }
+  } else if (containsAll(words, ['who', 'i'])) {
+    const age = state.get(['human', 'age']);
+    const gender = state.get(['human', 'gender']);
+    const name = state.get(['human', 'name']);
+    const size = state.get(['human', 'size']);
+    response.push('So your name is ' + name + ', your gender is ' + gender + ',your size is ' + size + ' and your age is ' + age);
   } else if (containsAny(words, ['girl', 'lady', 'female'])) {
     state.set(['human', 'gender'], 'female');
     response.push('So you are female!');
@@ -76,7 +83,7 @@ export default function processHumanText (input, state, output) {
     const name = words[contains(words, 'is')];
     state.set(['human', 'name'], name);
     response.push('So your name is ' + name);
-  } else if (contains(words, 'am')) {
+  } else if (containsAll(words, ['i', 'am'])) {
     const name = words[contains(words, 'am')];
     state.set(['human', 'name'], name);
     response.push('So your name is ' + name + '!');
