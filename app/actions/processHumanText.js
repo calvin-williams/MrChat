@@ -57,6 +57,14 @@ export default function processHumanText (input, state, output) {
     } else {
       response.push('So you are tall');
     }
+  } else if (containsAll(words, ['i', 'small'])) {
+    state.set(['human', 'size'], 'small');
+    const gender = state.get(['human', 'gender']);
+    if (gender) {
+      response.push('So you are a small ' + gender);
+    } else {
+      response.push('So you are small');
+    }
   } else if (containsAny(words, ['girl', 'lady', 'female'])) {
     state.set(['human', 'gender'], 'female');
     response.push('So you are female!');
